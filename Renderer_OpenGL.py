@@ -1,7 +1,9 @@
 import pygame
 from pygame.locals import *
 
-from gl import Renderer
+from shaders import *
+
+from gl import Renderer, Buffer
 
 width = 960
 height = 540
@@ -14,6 +16,16 @@ screen = pygame.display.set_mode((width, height), pygame.OPENGL | pygame.DOUBLEB
 clock = pygame.time.Clock()
 
 rend = Renderer(screen)
+
+rend.setShaders(vertex_shader, fragment_shader)
+
+#           Positions         Colors
+triangle = [-0.5, -0.5, 0,    1.0, 0.0, 0.0,
+               0,  0.5, 0,    0.0, 1.0, 0.0,
+             0.5, -0.5, 0,    0.0, 0.0, 1.0 ]
+
+rend.scene.append( Buffer(triangle) )
+
 
 isRunning = True
 
